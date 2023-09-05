@@ -8,7 +8,7 @@ public class gameManager : MonoBehaviour
 {
     public float timer;
     public GameObject enemyPrefab;
-    public TextMeshPro myText;
+    public TextMeshProUGUI myText;
     // Start is called before the first frame update
     void Start()
     {
