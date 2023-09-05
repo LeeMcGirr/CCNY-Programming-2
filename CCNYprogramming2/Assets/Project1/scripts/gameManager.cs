@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UIElements;
 
 public class gameManager : MonoBehaviour
 {
     public float timer;
     public GameObject enemyPrefab;
+    public TextMeshPro myText;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +25,7 @@ public class gameManager : MonoBehaviour
             Debug.Log("timer fired off");
             Instantiate(enemyPrefab, new Vector3(1, 0, 0), Quaternion.identity);
         }
+        myText.text = timer.ToString();
+
     }
 }

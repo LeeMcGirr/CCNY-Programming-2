@@ -20,4 +20,10 @@ public class enemyController : MonoBehaviour
         Vector3 playerPos = myPlayer.transform.position; 
         transform.position = Vector3.MoveTowards(transform.position, playerPos, maxDistDelta);
     }
+
+    void private void OnCollisionEnter(Collision other) {
+        if(other.GameObject.name == "player1"){
+            
+        }
+    }
 }
