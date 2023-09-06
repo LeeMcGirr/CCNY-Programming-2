@@ -5,6 +5,8 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     public float speed = 1f;
+    bool beenHit = false;
+    //public 
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,9 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //the following is a simple WASD controller
+        // Input.GetKey checks to see if a key is currently pressed down, instead of GetKeyDown or GetKeyUp, which only check for the press/release
+        //this uses all if() statements so multiple movement inputs can be active in a single update loop
         if(Input.GetKey(KeyCode.W))
         {
             //Debug.Log("W pressed");
@@ -34,5 +39,28 @@ public class playerController : MonoBehaviour
             //Debug.Log("D pressed");
             transform.Translate(Vector3.right * speed);
         }
+    }
+
+        void OnCollisionEnter2D(Collision2D other) {
+
+        if(other.gameObject.name == "enemy") //collision2D other stores information on the object collided with so we can check for the player here
+        {
+           
+        }
+
+
+   }
+
+        private IEnumerator itsBeenHit(float waitTime)
+    {
+        //flip our enemySpawned boolean to false to disable additional spawns until after this one completes
+        beenHit = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+
+        beenHit = false;
+        //re-enable the enemy spawn function
+
     }
 }
