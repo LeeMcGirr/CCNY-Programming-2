@@ -6,12 +6,15 @@ using UnityEngine.UIElements;
 
 public class gameManager : MonoBehaviour
 {
-    public float timer;
+    float timer;
+    public float spawnInterval = 3f;
     public GameObject enemyPrefab;
     public GameObject myPlayer;
     public TextMeshProUGUI myText;
+    public TextMeshProUGUI myHitText;
     float enemyTimer;
     bool enemySpawned;
+    int player1HitCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +25,13 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        player1HitCount = myPlayer.GetComponent<playerController>().hitCount;
         timer += Time.deltaTime;
         enemyTimer += Time.deltaTime;
 
         // modulus (%) can be used to check for a remainder, letting us run actions on fixed intervals 
         //in this case we're checking the game time and spawning enemies on a fixed interval
-        if (timer % 5 <= 0.05f && enemySpawned)
+        if (timer % spawnInterval <= 0.05f && enemySpawned)
         {
             //coroutines run on a separate loop from update and can be used for cooldowns or to stop double-inputs
             StartCoroutine(enemySpawn(.2f)); 
@@ -44,9 +48,9 @@ public class gameManager : MonoBehaviour
 
         //GUI debug in scene - this updates our textmeshpro object to track gameTime
         myText.text = timer.ToString();
+        myHitText.text = player1HitCount.ToString();
 
     }
-
 
     private IEnumerator enemySpawn(float waitTime)
     {
@@ -71,4 +75,5 @@ public class gameManager : MonoBehaviour
         //re-enable the enemy spawn function
         enemySpawned = true;
     }
+
 }

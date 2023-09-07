@@ -5,8 +5,8 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     public float speed = 1f;
-    bool beenHit = false;
-    //public 
+    public SpriteRenderer mySprite;
+    public int hitCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,27 +40,24 @@ public class playerController : MonoBehaviour
             transform.Translate(Vector3.right * speed);
         }
     }
-
+        //OnCollisionEnter2D other stores information on the object collided with so we can check for the enemies here
         void OnCollisionEnter2D(Collision2D other) {
 
-        if(other.gameObject.name == "enemy") //collision2D other stores information on the object collided with so we can check for the player here
+        if(other.gameObject.name == "enemy") 
         {
-           
+            // each time the player is hit, start a coroutine to track hit count
+            StartCoroutine(itsBeenHit(.2f));            
         }
-
 
    }
 
         private IEnumerator itsBeenHit(float waitTime)
     {
-        //flip our enemySpawned boolean to false to disable additional spawns until after this one completes
-        beenHit = true;
 
+        mySprite.color = Color.red; //make the player red so we know it's been hit
+        hitCount += 1; //add to the player hitCount - gameManager pulls this number to track number of hits to the player
         yield return new WaitForSeconds(waitTime);
-
-
-        beenHit = false;
-        //re-enable the enemy spawn function
+        mySprite.color = Color.white;
 
     }
 }
