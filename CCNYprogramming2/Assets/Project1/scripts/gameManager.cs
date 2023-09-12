@@ -14,7 +14,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI myHitText;
     float enemyTimer;
     bool enemySpawned;
-    int player1HitCount = 0;
+    float player1HitCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player1HitCount = myPlayer.GetComponent<playerController>().hitCount;
+        player1HitCount = myPlayer.GetComponent<playerController>().myHealth;
         timer += Time.deltaTime;
         enemyTimer += Time.deltaTime;
 
