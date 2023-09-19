@@ -6,50 +6,92 @@ using UnityEngine.UIElements;
 
 public class gameManager : MonoBehaviour
 {
+
+
     float timer;
+
+    [Header("Start Menu Vars")]
+    public TextMeshProUGUI startGame;
+
+    [Header("Playing Vars")]
     public float spawnInterval = 3f;
     public GameObject enemyPrefab;
     public GameObject myPlayer;
-    public TextMeshProUGUI myText;
+    public TextMeshProUGUI myTimerText;
+    public TextMeshProUGUI timerHeaderText;
     public TextMeshProUGUI myHitText;
     float enemyTimer;
     bool enemySpawned;
     float player1HitCount = 0;
+
+
+    public enum GameState
+    {
+        GAMESTART,
+        PLAYING,
+        GAMEOVER
+    };
+
+    public GameState myGameState;
 
     // Start is called before the first frame update
     void Start()
     {
         timer = 0f;
         enemySpawned = true;
+        myGameState = GameState.GAMESTART;
     }
 
     // Update is called once per frame
     void Update()
     {
-        player1HitCount = myPlayer.GetComponent<playerController>().myHealth;
-        timer += Time.deltaTime;
-        enemyTimer += Time.deltaTime;
 
-        // modulus (%) can be used to check for a remainder, letting us run actions on fixed intervals 
-        //in this case we're checking the game time and spawning enemies on a fixed interval
-        if (timer % spawnInterval <= 0.05f && enemySpawned)
+        switch (myGameState)
         {
-            //coroutines run on a separate loop from update and can be used for cooldowns or to stop double-inputs
-            StartCoroutine(enemySpawn(.2f)); 
-        }
+            case GameState.GAMESTART:
 
-        //an alternative approach is to just set multiple timers up but this can get hard to track once you have
-        //a more complex game scene with lots of objects and behaviors to track
-        if (enemyTimer >= 5f)
-        {
-            //enemyTimer = 0f;
-            //Debug.Log("timer fired off");
-            //Instantiate(enemyPrefab, new Vector3(1, 0, 0), Quaternion.identity);
-        }
+                Debug.Log("game in start menu");
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    EnterPlaying();
+                }
 
-        //GUI debug in scene - this updates our textmeshpro object to track gameTime
-        myText.text = timer.ToString();
-        myHitText.text = player1HitCount.ToString();
+            break;
+
+            case GameState.PLAYING:
+
+                Debug.Log("game is playing");
+                player1HitCount = myPlayer.GetComponent<playerController>().myHealth;
+                timer += Time.deltaTime;
+                enemyTimer += Time.deltaTime;
+
+                // modulus (%) can be used to check for a remainder, letting us run actions on fixed intervals 
+                //in this case we're checking the game time and spawning enemies on a fixed interval
+                if (timer % spawnInterval <= 0.05f && enemySpawned)
+                {
+                    //coroutines run on a separate loop from update and can be used for cooldowns or to stop double-inputs
+                    StartCoroutine(enemySpawn(.2f));
+                }
+
+                //an alternative approach is to just set multiple timers up but this can get hard to track once you have
+                //a more complex game scene with lots of objects and behaviors to track
+                if (enemyTimer >= 5f)
+                {
+                    //enemyTimer = 0f;
+                    //Debug.Log("timer fired off");
+                    //Instantiate(enemyPrefab, new Vector3(1, 0, 0), Quaternion.identity);
+                }
+
+                //GUI debug in scene - this updates our textmeshpro object to track gameTime
+                myTimerText.text = timer.ToString();
+                myHitText.text = player1HitCount.ToString();
+
+                break;
+
+            case GameState.GAMEOVER:
+                Debug.Log("game in score screen");
+            break;
+        }
 
     }
 
@@ -75,6 +117,35 @@ public class gameManager : MonoBehaviour
 
         //re-enable the enemy spawn function
         enemySpawned = true;
+    }
+
+    //this calls the local GameState and changes it to the given argument
+    void ChangeMode(GameState state)
+    {
+        myGameState = state;
+    }
+
+    void EnterPlaying()
+    {
+        startGame.enabled = false;
+        myPlayer.SetActive(true);
+        enemyPrefab.SetActive(true);
+        myHitText.enabled = true;
+        myTimerText.enabled = true;
+        timerHeaderText.enabled = true;
+        ChangeMode(GameState.PLAYING);
+    }
+
+    void EnterGameOver()
+    {
+        //code that changes to the score screen goes here
+        ChangeMode(GameState.GAMEOVER);
+    }
+
+    void EnterStartMenu()
+    {
+        //code that goes from score screen back to start goes here
+        ChangeMode(GameState.GAMESTART);
     }
 
 }
