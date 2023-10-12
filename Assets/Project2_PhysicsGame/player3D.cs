@@ -52,6 +52,7 @@ public class player3D : MonoBehaviour
 
     void FixedUpdate()
     {
+
         Vector3 newDir = transform.TransformDirection(Direction());
         Debug.DrawRay(transform.position, newDir*4f, Color.black, 5f);
         myRB.AddForce(newDir*speed, ForceMode.VelocityChange);
@@ -67,9 +68,6 @@ public class player3D : MonoBehaviour
         //Vector3 myLook = MouseLook();
         //myLook.z = myCam.transform.rotation.z;
         //Vector3 currentLook = new Vector3(myCam.transform.rotation.x, myCam.transform.rotation.y, myCam.transform.rotation.z);
-        //public static Vector3 SmoothDamp(Vector3 current, Vector3 target, ref Vector3 currentVelocity, float smoothTime, float maxSpeed = Mathf.Infinity, float deltaTime = Time.deltaTime);
-        //myLook = Vector3.SmoothDamp(currentLook, myLook, ref velocity, 0.3f);
-        //myCam.transform.rotation = Quaternion.Euler(-myLook.x, myLook.y, 0f);
     }
 
     void OnCollisionStay(Collision collision)
