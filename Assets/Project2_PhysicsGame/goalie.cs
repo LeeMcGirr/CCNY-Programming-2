@@ -12,7 +12,7 @@ public class goalie : NPC
     
     //because the base NPC Move() is protected, we must also make this override protected
     //override states that this is a new behavior that will override the base NPC Move()
-    protected override void Move()
+    internal override void Move()
     {
         //goalie tracks the ball
         Vector3 wishDir = myTarget.transform.position 

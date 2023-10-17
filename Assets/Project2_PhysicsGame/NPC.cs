@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
 
     //our custom functions must be at least protected to be accessed and editable by subclasses
     //virtual declares that this method is allowed to be overridden, otherwise the subclass cannot edit it
-    protected virtual void Move()
+    internal virtual void Move()
     {
         //parent class returns a debug placeholder for move
         Debug.Log("move not defined for this class");
