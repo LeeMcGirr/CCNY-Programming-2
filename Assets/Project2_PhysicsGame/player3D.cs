@@ -9,10 +9,19 @@ public class player3D : MonoBehaviour
     public float jumpUpSpeed = 5f;
     public GameObject myCam;
 
+    [Header("kick vars")]
+    public float kickVel = 5f;
+    public float kickUpMod = 5f;
+    public float kickDist = 3f;
+    public Transform attackPoint;
+
     Rigidbody myRB;
     Vector3 myDir;
+    Vector3 myLook;
     public bool jumpCalled;
     public bool jumped;
+    public bool kickCalled;
+    public bool kicked;
 
     [Header("cam vars")]
     public Vector2 camLock = new Vector2(-90f, 90f);
@@ -23,9 +32,15 @@ public class player3D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myDir = Vector3.zero;
+        myLook = Vector3.zero;
         myRB = GetComponent<Rigidbody>();
+
         jumpCalled = false;
         jumped = false;
+
+        kickCalled = false;
+        kicked = false;
     }
 
     // Update is called once per frame
@@ -43,10 +58,11 @@ public class player3D : MonoBehaviour
         Debug.DrawRay(transform.position, playerRight.normalized, Color.yellow, .1f);
 
         //for now we'll leave the look rotations in here - next class we're going to split out the camera update into late update
-        Vector3 myLook = MouseLook();
+        myLook = MouseLook();
         transform.rotation = Quaternion.Euler(0f, myLook.y, 0f);
         myCam.transform.rotation = Quaternion.Euler(-myLook.x, myLook.y, 0f);
         if(Input.GetKey(KeyCode.Space) && !jumped) { jumpCalled = true; }
+        if(Input.GetKey(KeyCode.Return) && !kicked) { kickCalled = true; }
         
     }
 
@@ -59,6 +75,9 @@ public class player3D : MonoBehaviour
 
 
         if (jumpCalled) { Debug.Log("Jump key pressed"); Jump(); }
+
+        Vector3 kickDir = transform.TransformDirection(Vector3.forward);
+        if (kickCalled) { Kick(kickDir); Debug.Log("myLook: " + kickDir); }
 
     }
 
@@ -108,6 +127,33 @@ public class player3D : MonoBehaviour
         myRB.AddForce(Vector3.up * jumpUpSpeed, ForceMode.VelocityChange);
         jumpCalled = false;
         jumped = true;
+    }
+
+    void Kick(Vector3 dir)
+    {
+        //declare a placeholder for the hit data
+        RaycastHit hit;
+        //visual debug to confirm the kick direction and magnitude
+        Debug.DrawRay(attackPoint.position, dir * kickDist, Color.green, 5f);
+        //the physics call itself
+        Physics.Raycast(attackPoint.position, dir, out hit, kickDist);
+        //checking to see if it worked before we write more code
+        Debug.Log("sent a raycast");
+        kickCalled = false;
+        kicked = true;
+        StartCoroutine(kickCooldown());
+
+        Vector3 hitPoint = Vector3.Lerp(hit.point, transform.position, .4f);
+        Debug.DrawRay(hitPoint, Vector3.up, Color.red, 5f);
+        //code if we hit something
+        hit.rigidbody.AddExplosionForce(kickVel, hitPoint, 10f, kickUpMod);
+
+    }
+
+    IEnumerator kickCooldown()
+    {
+        yield return new WaitForSeconds(.5f);
+        kicked = false;
     }
 
 }
