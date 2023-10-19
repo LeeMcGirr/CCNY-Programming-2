@@ -136,8 +136,9 @@ public class player3D : MonoBehaviour
         //visual debug to confirm the kick direction and magnitude
         Debug.DrawRay(attackPoint.position, dir * kickDist, Color.green, 5f);
         //the physics call itself
-        Physics.Raycast(attackPoint.position, dir, out hit, kickDist);
+        Physics.SphereCast(attackPoint.position, 1f, dir, out hit, kickDist);
         //checking to see if it worked before we write more code
+
         Debug.Log("sent a raycast");
         kickCalled = false;
         kicked = true;
