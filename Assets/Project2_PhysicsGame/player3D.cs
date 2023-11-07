@@ -33,6 +33,7 @@ public class player3D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        physicsGameManager.myInstance.setPlayer(.2f);
         myDir = Vector3.zero;
         myLook = Vector3.zero;
         myRB = GetComponent<Rigidbody>();

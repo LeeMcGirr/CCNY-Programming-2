@@ -8,25 +8,30 @@ using UnityEngine.SceneManagement;
 public class physicsGameManager : MonoBehaviour
 {
 
-    private static physicsGameManager _MgrInstance; //first we declare a private instance of this script
-    public static physicsGameManager myInstance //now we declare a public property Instance
-    {
-        get //we can use a get function to find the private instance _MgrInstance 
-        {
-            if (_MgrInstance == null) //if there is none, we can create one on the spot!
-            {
-                GameObject go = new GameObject("GameManager"); //first we create a game object
-                go.AddComponent<physicsGameManager>(); //now we attach the game manager script to it
-            }
+    private static physicsGameManager _MgrInstance; //declaring an instance of the mgr script
 
+    public static physicsGameManager myInstance
+    {
+        get
+        {
+            if(_MgrInstance == null )
+            {
+                GameObject myGO = new GameObject("GameManager");
+                myGO.AddComponent<physicsGameManager>();
+                DontDestroyOnLoad(myGO.gameObject);
+            }
             return _MgrInstance;
         }
     }
 
+
+
+
+
     float timer = 60f;
 
     public GameObject myPlayer;
-    player3D myPlayerCon;
+    public player3D myPlayerCon;
 
     public GameObject goalie;
     public GameObject striker;
@@ -44,7 +49,7 @@ public class physicsGameManager : MonoBehaviour
     void Awake()
     {
         //make sure our gameManager is persistent & doesn't die on scene change
-        myGameState = GameState.GAMESTART;
+        myGameState = GameState.PLAYING;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -60,20 +65,23 @@ public class physicsGameManager : MonoBehaviour
         switch (myGameState)
         {
                 case GameState.GAMESTART: //code for the start menu goes here
-                if (Input.GetKeyUp(KeyCode.Return))
-                {
-                    sceneChanger(gameScene); //sceneChanger takes a string as an argument and loads a new scene
-                    StartCoroutine(setPlayer(1f)); //we delay the search for our player to avoid running find() before the player loads
-                    EnterPlaying();
-                }
+
                 break;
 
                 case GameState.PLAYING: //code for the game playing scene
+                
+                if(myPlayer == null)
+                {
+                    findPlayer();
+                }
 
                 timer -= Time.deltaTime;
+
                 break;
 
                 case GameState.GAMEOVER: //code for our game over screen/scene
+
+                Destroy(this.gameObject);
 
                 break;
         }
@@ -101,13 +109,13 @@ public class physicsGameManager : MonoBehaviour
     }
 
     //method to call whenever the scene needs to be changed
-    void sceneChanger(string sceneName)
+    public void SceneChanger(string sceneName)
     {
         //built in Unity function to load a new scene
         SceneManager.LoadScene(sceneName);
     }
 
-    void findPlayer()
+    public void findPlayer()
     {
         //uses a string to find a specific object, be sure to correctly name your player
         myPlayer = GameObject.Find("playerMesh");
@@ -117,7 +125,7 @@ public class physicsGameManager : MonoBehaviour
     //this is a coroutine - a snippet of code that runs on its own time frame / loop when called
     //in this case we're using it to make sure our game scene loads before searching for the player
     //otherwise we'd risk searching before the player is loaded into the active game scene & failing to find
-    IEnumerator setPlayer(float myTime)
+    public IEnumerator setPlayer(float myTime)
     {
         //wait for a given amount of time
         yield return new WaitForSeconds(myTime);
