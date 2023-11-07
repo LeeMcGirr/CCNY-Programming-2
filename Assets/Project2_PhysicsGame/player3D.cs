@@ -29,6 +29,7 @@ public class player3D : MonoBehaviour
     float rotY;
 
     private Vector3 velocity = Vector3.zero;
+    Vector3 groundNormal;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,8 @@ public class player3D : MonoBehaviour
 
         kickCalled = false;
         kicked = false;
+
+        groundNormal = Vector3.up;
     }
 
     // Update is called once per frame
@@ -70,7 +73,11 @@ public class player3D : MonoBehaviour
     {
 
         Vector3 newDir = transform.TransformDirection(Direction());
-        Debug.DrawRay(transform.position, newDir*4f, Color.black, 5f);
+        Vector3 wishDir = Vector3.Cross(Vector3.Cross(groundNormal, newDir), groundNormal);
+        Debug.DrawRay(transform.position, wishDir*4f, Color.black, 5f);
+
+
+
         myRB.AddForce(newDir*speed, ForceMode.VelocityChange);
 
 
@@ -92,6 +99,9 @@ public class player3D : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
         jumped = false;
+
+        if(collision.gameObject.tag == "ground")
+        { groundNormal = collision.contacts[0].normal; } //don't pull the index raw like this, best to declare the array first
     }
 
     Vector3 Direction()
