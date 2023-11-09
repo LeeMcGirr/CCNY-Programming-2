@@ -4,29 +4,38 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class physicsGameManager : MonoBehaviour
 {
 
-    private static physicsGameManager _MgrInstance; //declaring an instance of the mgr script
+    // --------------------------------- code for instancing a singleton and loading before scene ----------------------------------------//
 
-    public static physicsGameManager myInstance
+    private static physicsGameManager _MgrInstance; //declaring an instance of this script itself
+
+    public static physicsGameManager myInstance //describes a property you can use to find or create an instance of this script if it does not already exist
     {
-        get
+        get // this get function will run whenever we declare physicsGameManager.myInstance in any of our code
         {
-            if(_MgrInstance == null )
+            if(_MgrInstance == null ) // first we define what to do if there is no instance - we create one
             {
-                GameObject myGO = new GameObject("GameManager");
+                GameObject myGO = new GameObject("GameManager"); //all scripts need a gameobject in unity so we make one then attach the script
                 myGO.AddComponent<physicsGameManager>();
                 DontDestroyOnLoad(myGO.gameObject);
             }
-            return _MgrInstance;
+            return _MgrInstance; //finally, return the _MgrInstance, either the existing one, or if there was none, the new one created in our if statement
         }
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)] //this spawns the game manager before the scene loads
+    public static void InitializeFramework() //we need to declare a function to run in .BeforeSceneLoad
+    {
+        physicsGameManager newMgr = physicsGameManager.myInstance; //finally, we have a new instance of our gameManager
+    }
 
-
-
+// ---------------------------- variables in the game manager ------------------------------------------ //
 
     float timer = 60f;
 
@@ -38,8 +47,8 @@ public class physicsGameManager : MonoBehaviour
 
 
     [Header("scenes")]
-    public string introScene;
-    public string gameScene;
+    public string introScene = "IntroScene";
+    public string gameScene = "physicsGame";
     public string finaleScene;
 
     public enum GameState { GAMESTART,PLAYING,GAMEOVER };
@@ -49,7 +58,7 @@ public class physicsGameManager : MonoBehaviour
     void Awake()
     {
         //make sure our gameManager is persistent & doesn't die on scene change
-        myGameState = GameState.PLAYING;
+        myGameState = GameState.GAMESTART;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -57,6 +66,7 @@ public class physicsGameManager : MonoBehaviour
     void Start()
     {
         timer = 60f;
+        findStartButton();
     }
 
     // Update is called once per frame
@@ -131,5 +141,13 @@ public class physicsGameManager : MonoBehaviour
         yield return new WaitForSeconds(myTime);
         //call our findPlayer function
         findPlayer();
+    }
+
+
+    public void findStartButton()
+    {
+        GameObject myButton = GameObject.Find("Button");
+        if (myGameState == GameState.GAMESTART) { myButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => SceneChanger(gameScene)); }
+        else if (myGameState == GameState.GAMEOVER) { myButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => SceneChanger(introScene)); }
     }
 }

@@ -21,6 +21,5 @@ public class sceneChanger : MonoBehaviour
     {
         //built in Unity function to load a new scene
         SceneManager.LoadScene(sceneName);
-        //physicsGameManager.myInstance.SceneChanger(sceneName);
     }
 }
