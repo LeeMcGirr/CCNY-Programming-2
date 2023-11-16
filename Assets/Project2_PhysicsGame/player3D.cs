@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player3D : MonoBehaviour
 {
@@ -28,12 +29,36 @@ public class player3D : MonoBehaviour
     float rotX;
     float rotY;
 
+    [Header("cosmetics")]
+    public MeshRenderer bodyRender;
+    public MeshFilter myBodyMesh;
+    public MeshRenderer hatRender;
+    public MeshFilter myHatMesh;
+    Material bodyMat;
+
+    public Slider R;
+    public Slider G;
+    public Slider B;
+
+    public Mesh[] myHats;
+    int hatIndex;
+    public Mesh[] myBodies;
+    int bodyIndex;
+
     private Vector3 velocity = Vector3.zero;
     Vector3 groundNormal;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     void Start()
     {
-
+        hatIndex= 0;
+        bodyIndex= 0;
+        myHatMesh.mesh = myHats[0];
+        myBodyMesh.mesh = myBodies[0];
+        bodyMat = bodyRender.material;
         myDir = Vector3.zero;
         myLook = Vector3.zero;
         myRB = GetComponent<Rigidbody>();
@@ -161,6 +186,29 @@ public class player3D : MonoBehaviour
         hit.rigidbody.AddExplosionForce(kickVel, hitPoint, 10f, kickUpMod);
 
     }
+
+    #region cosmetics
+    public void OnSliderChange()
+    {
+        bodyMat.color = new Color(R.value, G.value, B.value, 1f);
+    }
+
+    public void OnHatButton()
+    {
+        if(hatIndex < myHats.Length-1)
+        {
+            hatIndex++;
+            myHatMesh.mesh = myHats[hatIndex];
+        }
+        else { hatIndex = 0; myHatMesh.mesh = myHats[hatIndex]; }
+    }
+    public void onBodyButton()
+    {
+        if(bodyIndex< myBodies.Length-1) { bodyIndex++; myBodyMesh.mesh = myBodies[bodyIndex]; }
+        else { bodyIndex = 0; myBodyMesh.mesh = myBodies[bodyIndex]; }
+
+    }
+    #endregion
 
     IEnumerator kickCooldown()
     {
