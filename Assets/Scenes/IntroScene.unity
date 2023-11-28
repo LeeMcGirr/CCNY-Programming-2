@@ -130,10 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4433427168119879744, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: B
       value: 
@@ -146,53 +142,13 @@ PrefabInstance:
       propertyPath: R
       value: 
       objectReference: {fileID: 1907622164}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: hatMesh
-      value: 
-      objectReference: {fileID: 590196866}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: bodyMesh
-      value: 
-      objectReference: {fileID: 303083104}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myHats.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myBodies.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myHats.Array.data[0]
-      value: 
-      objectReference: {fileID: 6456673854294223981, guid: 87bf516ac56d9b14ca923163ebc29476, type: 3}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myHats.Array.data[1]
-      value: 
-      objectReference: {fileID: 6456673854294223981, guid: 90fecf16760db5b4cba403de278561ee, type: 3}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myHats.Array.data[2]
-      value: 
-      objectReference: {fileID: 3202306442874664278, guid: c04a177a94b90984c80bb7aff4e868ab, type: 3}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myBodies.Array.data[0]
-      value: 
-      objectReference: {fileID: 506274628368982806, guid: 09ab08fc28246884f978ea7748fa78da, type: 3}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myBodies.Array.data[1]
-      value: 
-      objectReference: {fileID: 3202306442874664278, guid: 1a57033f84a6f5043b66cc0b7c575604, type: 3}
-    - target: {fileID: 4433427168927664016, guid: b37d3474a52151f449791787362c7677, type: 3}
-      propertyPath: myBodies.Array.data[2]
-      value: 
-      objectReference: {fileID: -216436506510932074, guid: fc16315f17c48e54bbee6e9347faa7b6, type: 3}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.63
+      value: 2.70836
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalPosition.y
@@ -200,23 +156,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.81
+      value: -5.59207
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.33835748
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.9410176
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -224,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -140.446
       objectReference: {fileID: 0}
     - target: {fileID: 4433427168927664017, guid: b37d3474a52151f449791787362c7677, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -443,7 +399,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 266522496}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 96821116}
+        m_TargetAssemblyTypeName: player3D, Assembly-CSharp
+        m_MethodName: onBodyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &266522496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,11 +450,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266522493}
   m_CullTransparentMesh: 1
---- !u!23 &303083104 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1659699533, guid: b37d3474a52151f449791787362c7677, type: 3}
-  m_PrefabInstance: {fileID: 525556}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &305521378
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +679,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324051856}
   m_CullTransparentMesh: 1
+--- !u!1 &405567222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405567224}
+  - component: {fileID: 405567223}
+  m_Layer: 0
+  m_Name: lobbyMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &405567223
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405567222}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ed71abb7788f32f49ab5f1674bb6137f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.149
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &405567224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405567222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 289.46655, y: 152.49922, z: -36.97853}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &512748073
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,11 +951,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &590196866 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1109660520, guid: b37d3474a52151f449791787362c7677, type: 3}
-  m_PrefabInstance: {fileID: 525556}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &669494185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,7 +2361,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1746878093}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 96821116}
+        m_TargetAssemblyTypeName: player3D, Assembly-CSharp
+        m_MethodName: OnHatButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1746878093
 MonoBehaviour:
   m_ObjectHideFlags: 0

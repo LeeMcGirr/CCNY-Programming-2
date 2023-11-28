@@ -47,9 +47,15 @@ public class player3D : MonoBehaviour
 
     private Vector3 velocity = Vector3.zero;
     Vector3 groundNormal;
+
+
+    [Header("Audio Vars")]
+    public AudioClip[] myKicks;
+    AudioSource kickSource;
     // Start is called before the first frame update
     private void Awake()
     {
+        kickSource = GetComponent<AudioSource>();
         DontDestroyOnLoad(this);
     }
     void Start()
@@ -110,7 +116,11 @@ public class player3D : MonoBehaviour
         if (jumpCalled) { Debug.Log("Jump key pressed"); Jump(); }
 
         Vector3 kickDir = transform.TransformDirection(Vector3.forward);
-        if (kickCalled) { Kick(kickDir); Debug.Log("myLook: " + kickDir); }
+        if (kickCalled) 
+        { 
+            Kick(kickDir); 
+            Debug.Log("myLook: " + kickDir); 
+        }
 
     }
 
@@ -167,12 +177,13 @@ public class player3D : MonoBehaviour
 
     void Kick(Vector3 dir)
     {
+        bool kickHit = false;
         //declare a placeholder for the hit data
         RaycastHit hit;
         //visual debug to confirm the kick direction and magnitude
         Debug.DrawRay(attackPoint.position, dir * kickDist, Color.green, 5f);
         //the physics call itself
-        Physics.SphereCast(attackPoint.position, 1f, dir, out hit, kickDist);
+        if(Physics.SphereCast(attackPoint.position, 1f, dir, out hit, kickDist)) { kickHit = true; }
         //checking to see if it worked before we write more code
 
         Debug.Log("sent a raycast");
@@ -183,7 +194,12 @@ public class player3D : MonoBehaviour
         Vector3 hitPoint = Vector3.Lerp(hit.point, transform.position, .4f);
         Debug.DrawRay(hitPoint, Vector3.up, Color.red, 5f);
         //code if we hit something
-        hit.rigidbody.AddExplosionForce(kickVel, hitPoint, 10f, kickUpMod);
+
+        if (kickHit)
+        {
+            PlayKick();
+            hit.rigidbody.AddExplosionForce(kickVel, hitPoint, 10f, kickUpMod);
+        }
 
     }
 
@@ -209,6 +225,13 @@ public class player3D : MonoBehaviour
 
     }
     #endregion
+
+    public void PlayKick()
+    {
+        int i = Random.Range(0, myKicks.Length - 1);
+        kickSource.clip = myKicks[i]; 
+        kickSource.Play();
+    }
 
     IEnumerator kickCooldown()
     {

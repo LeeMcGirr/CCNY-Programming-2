@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4433427168119879773
 Transform:
   m_ObjectHideFlags: 0
@@ -356,6 +356,22 @@ MonoBehaviour:
   kickCalled: 0
   kicked: 0
   camLock: {x: -25, y: 10}
+  bodyRender: {fileID: 1659699533}
+  myBodyMesh: {fileID: 1659699534}
+  hatRender: {fileID: 1109660520}
+  myHatMesh: {fileID: 1109660521}
+  R: {fileID: 0}
+  G: {fileID: 0}
+  B: {fileID: 0}
+  myHats:
+  - {fileID: 6456673854294223981, guid: 87bf516ac56d9b14ca923163ebc29476, type: 3}
+  - {fileID: 6456673854294223981, guid: 90fecf16760db5b4cba403de278561ee, type: 3}
+  - {fileID: 3202306442874664278, guid: c04a177a94b90984c80bb7aff4e868ab, type: 3}
+  myBodies:
+  - {fileID: 506274628368982806, guid: 09ab08fc28246884f978ea7748fa78da, type: 3}
+  - {fileID: 3202306442874664278, guid: 1a57033f84a6f5043b66cc0b7c575604, type: 3}
+  - {fileID: -216436506510932074, guid: fc16315f17c48e54bbee6e9347faa7b6, type: 3}
+  myKicks: []
 --- !u!1 &4433427169236513788
 GameObject:
   m_ObjectHideFlags: 0

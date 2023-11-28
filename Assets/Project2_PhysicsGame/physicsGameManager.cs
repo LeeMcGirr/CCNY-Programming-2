@@ -66,7 +66,7 @@ public class physicsGameManager : MonoBehaviour
     void Start()
     {
         timer = 60f;
-        findStartButton();
+        //findStartButton();
     }
 
     // Update is called once per frame
