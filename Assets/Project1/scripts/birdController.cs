@@ -6,10 +6,10 @@ public class birdController : MonoBehaviour
 {
     public float speed = 1f;
     public SpriteRenderer mySprite;
-    public int hitCount = 0;
+    public bool dead = false;
     public float myHealth = 1000;
     Rigidbody2D rb;
-    public gameManager myManager;
+
 
     Vector3 previousPos;
     Vector3 myDir;
@@ -51,7 +51,7 @@ public class birdController : MonoBehaviour
         if(other.gameObject.tag == "enemy") 
         {
             // each time the player is hit, execute code here
-            myManager.EnterFinale();
+            dead = true;
         }
 
     }

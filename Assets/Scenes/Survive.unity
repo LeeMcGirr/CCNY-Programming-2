@@ -1289,6 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea6587e3faf56244b3c72ce25d4a0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBird: 0
   myPlayer: {fileID: 278750316}
   timer: 0
   timeLimit: 60
@@ -1298,7 +1299,7 @@ MonoBehaviour:
   spawnTimer: 0
   spawnXBounds: {x: -8, y: 8}
   spawnYBounds: {x: -4.3, y: 4.3}
-  TitleText: {fileID: 1836712356}
+  TitleText: {fileID: 0}
   myGameState: 0
 --- !u!1 &1568310494
 GameObject:

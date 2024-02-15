@@ -6,10 +6,13 @@ using UnityEngine;
 public class gameManager : MonoBehaviour
 {
     [Header("Global vars")]
+    public bool isBird;
     public GameObject myPlayer;
     public float timer;
     public float timeLimit;
     public int score;
+    playerController myController;
+    birdController myBird;
 
     [Header("NPC vars")]
     public GameObject collectible1;
@@ -34,12 +37,22 @@ public class gameManager : MonoBehaviour
     {
         myGameState = GameState.GAMESTART;
         myPlayer.SetActive(false);
+        if (isBird) { myBird = myPlayer.GetComponent<birdController>(); }
+        else { myController = myPlayer.GetComponent<playerController>(); }
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isBird)
+        {
+            if (myController.myHealth < 0)
+            {
+                EnterFinale();
+            }
+        }
         //switch statements work kind of like a lightswitch with 2 or more positions
         switch (myGameState)
         {
@@ -76,7 +89,7 @@ public class gameManager : MonoBehaviour
                     spawnTimer = 0;
                     Debug.Log("spawnTimer: " + spawnTimer);
                     GameObject newObj = Instantiate(collectible1, targetPos, Quaternion.identity);
-                    newObj.GetComponent<enemyController>().myPlayer = myPlayer;
+                    if (!isBird) { newObj.GetComponent<enemyController>().myPlayer = myPlayer; }
                 }
                 #endregion
                 break;
@@ -96,8 +109,20 @@ public class gameManager : MonoBehaviour
     //state change for playing mode, turn on players, disable any start menu logic
     void EnterPlaying()
     {
+        //first we use the Unity method "FindGameObjectsWithTag()" to find all enemies or objects with our tag
+        GameObject[] enemyObj = GameObject.FindGameObjectsWithTag("enemy");
+
+        //now we use a for loop to run the Destroy() method on each
+        for(int i = 0; i < enemyObj.Length; i += 1)
+        {
+            Destroy(enemyObj[i]);
+        }
+
+
         timer = 0f;
+        spawnTimer = 0f;
         myGameState = GameState.PLAYING;
+        if (!isBird) { myController.myHealth = 1000; }
         myPlayer.SetActive(true);
         TitleText.enabled = false;
     }
@@ -107,6 +132,7 @@ public class gameManager : MonoBehaviour
         myGameState = GameState.GAMEOVER;
         myPlayer.SetActive(false);
         TitleText.enabled = true;
-        TitleText.text = "CONGRATS, You Survived. Press [SPACE] to restart";
+        TitleText.text = "GAME OVER. Press [SPACE] to restart";
+
     }
 }
