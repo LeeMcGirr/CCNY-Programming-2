@@ -73,9 +73,10 @@ public class gameManager : MonoBehaviour
                 //instantiate and reset timer when condition is met
                 if (spawnTimer > spawnInterval)
                 {
+                    spawnTimer = 0;
+                    Debug.Log("spawnTimer: " + spawnTimer);
                     GameObject newObj = Instantiate(collectible1, targetPos, Quaternion.identity);
                     newObj.GetComponent<enemyController>().myPlayer = myPlayer;
-                    spawnTimer = 0;
                 }
                 #endregion
                 break;
@@ -101,7 +102,7 @@ public class gameManager : MonoBehaviour
         TitleText.enabled = false;
     }
 
-    void EnterFinale()
+    public void EnterFinale()
     {
         myGameState = GameState.GAMEOVER;
         myPlayer.SetActive(false);
