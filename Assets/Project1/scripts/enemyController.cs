@@ -6,7 +6,7 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     public GameObject myPlayer;
-    public float maxDistDelta = .01f;
+    public float speed = .01f;
     public Rigidbody2D myBody;
     public float bounceMult = 100f;
     Vector3 dirTowards = Vector3.zero;
@@ -34,8 +34,8 @@ public class enemyController : MonoBehaviour
         //get playerPos then move the enemy towards it, change speed with DistDetla
         Vector3 playerPos = myPlayer.transform.position;
         Vector3 targetPos = Vector3.Lerp(playerPos, this.transform.position, .5f);
-        //the greater the maxDistDelta, the faster the enemy moves each frame
-        transform.position = Vector3.MoveTowards(transform.position, playerPos, maxDistDelta);
+        //the greater the speed, the faster the enemy moves each frame
+        transform.position = Vector3.MoveTowards(transform.position, playerPos, speed);
     }
 
     //OnCollisionEnter2D is called each time the collider attached to the object collides with any other collider
@@ -43,10 +43,11 @@ public class enemyController : MonoBehaviour
 
         if(other.gameObject.name == "player1") //collision2D other stores information on the object collided with so we can check for the player here
         {
-            //to get the vector between two objects, 
+            //to get the vector between two objects, subtract other from this
+            //the following code uses that to bounce the enemy away from player after a collision
             dirTowards = this.transform.position - other.gameObject.transform.position;
             dirTowards = dirTowards.normalized;
-            Debug.DrawRay(this.transform.position, dirTowards, Color.cyan, 2f);
+            Debug.DrawRay(this.transform.position, dirTowards, Color.cyan, 2f); //check in editor to see this visualized with a debug
             Debug.Log(dirTowards.magnitude);
             //AddForceAtPosition will add a force originating from a location, in this case the player, to throw the enemy out
             myBody.AddForceAtPosition( dirTowards*bounceMult , myPlayer.transform.position);

@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour
     Rigidbody2D myBody;
 
     Vector3 previousPos;
-    Vector3 targetDir = Vector3.zero;
+    Vector3 myDir;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,57 +21,40 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetDir = Vector3.zero;
-        //the following is a simple WASD controller
-        // Input.GetKey checks to see if a key is currently pressed down, instead of GetKeyDown or GetKeyUp, which only check for the press/release
-        //this uses all if() statements so multiple movement inputs can be active in a single update loop
-        if (Input.GetKey(KeyCode.W))
-        {
-            //Debug.Log("W pressed");
-            targetDir += Vector3.up;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            //Debug.Log("S pressed");
-            targetDir += Vector3.down;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            //Debug.Log("A pressed");
-            targetDir += Vector3.left;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            //Debug.Log("D pressed");
-            targetDir += Vector3.right;
-        }
-
         if(this.gameObject.transform.position == previousPos)
         {
             myHealth += 1*Time.deltaTime;
         }
-
-
-
         previousPos = this.gameObject.transform.position;
+    }
+
+    public Vector3 Dir()
+    {
+        //referencing Unity's virtual axis - these pick up KBM OR controller inputs
+        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("Horizontal");
+        myDir = new Vector3(x, y, 0); //combining them into one vector
+        Debug.Log(myDir);
+        return myDir; //return the value
     }
 
     void FixedUpdate()
     {
-        myBody.AddForce(targetDir, ForceMode2D.Impulse);
+        myBody.AddForce(Dir(), ForceMode2D.Impulse);
     }
         //OnCollisionEnter2D other stores information on the object collided with so we can check for the enemies here
-        void OnCollisionEnter2D(Collision2D other) {
+    void OnCollisionEnter2D(Collision2D other) 
+    {
 
-        if(other.gameObject.name == "enemy") 
+        if(other.gameObject.tag == "enemy") 
         {
             // each time the player is hit, start a coroutine to track hit count
             StartCoroutine(itsBeenHit(.2f));
         }
 
-   }
+    }
 
-        private IEnumerator itsBeenHit(float waitTime)
+    private IEnumerator itsBeenHit(float waitTime)
     {
 
         mySprite.color = Color.red; //make the player red so we know it's been hit
