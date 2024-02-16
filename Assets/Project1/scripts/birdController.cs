@@ -6,6 +6,7 @@ public class birdController : MonoBehaviour
 {
     public float speed = 1f;
     public SpriteRenderer mySprite;
+    public bool dead = false;
     public float myHealth = 1000;
     Rigidbody2D rb;
 
@@ -47,10 +48,10 @@ public class birdController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) 
     {
 
-        if(other.gameObject.tag == "DEATH") 
+        if(other.gameObject.tag == "enemy") 
         {
             // each time the player is hit, execute code here
-            myHealth = -1f;
+            dead = true;
         }
 
     }

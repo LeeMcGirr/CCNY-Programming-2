@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 1035278133}
   - component: {fileID: 1035278132}
   m_Layer: 5
-  m_Name: 'TIME:'
+  m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,7 +987,7 @@ GameObject:
   - component: {fileID: 1511917360}
   - component: {fileID: 1511917359}
   m_Layer: 5
-  m_Name: timer
+  m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1122,7 +1122,7 @@ GameObject:
   - component: {fileID: 1553392456}
   - component: {fileID: 1553392455}
   m_Layer: 5
-  m_Name: health
+  m_Name: Text (TMP) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1289,6 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea6587e3faf56244b3c72ce25d4a0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBird: 0
   myPlayer: {fileID: 278750316}
   timer: 0
   timeLimit: 60
@@ -1298,9 +1299,7 @@ MonoBehaviour:
   spawnTimer: 0
   spawnXBounds: {x: -8, y: 8}
   spawnYBounds: {x: -4.3, y: 4.3}
-  TitleText: {fileID: 1836712356}
-  scoreText: {fileID: 1553392455}
-  timerText: {fileID: 1511917359}
+  TitleText: {fileID: 0}
   myGameState: 0
 --- !u!1 &1568310494
 GameObject:
@@ -1609,7 +1608,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1638,7 +1637,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -509.3213, y: 0, z: -506.5653, w: 0}
+  m_margin: {x: -85.61255, y: 0, z: -82.37335, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

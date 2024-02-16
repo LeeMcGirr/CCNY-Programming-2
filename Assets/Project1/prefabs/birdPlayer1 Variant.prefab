@@ -71,7 +71,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3505913379224192155, guid: 91d676476f6e907429b652403d03f1b7, type: 3}
   m_PrefabInstance: {fileID: 1475055298669834079}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5396397185685210999
+--- !u!114 &3748116364025906632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,11 +80,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2657109891041684420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1494775207d53364bae1af94aefa4871, type: 3}
+  m_Script: {fileID: 11500000, guid: 9332516b1c9231140b6df0898a87086c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.1
   mySprite: {fileID: 2657109891041684421}
+  hitCount: 0
   myHealth: 1000
 --- !u!212 &2657109891041684421 stripped
 SpriteRenderer:
