@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Survive.unity
+    path: Assets/Scenes/IntroScene.unity
+    guid: 3c53ff8a7b27b304f8df7063c20103f4
+  - enabled: 1
+    path: Assets/Scenes/2Dgame.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/physicsGame.unity
+    guid: 52bb688f297fc3147a1754239a8fa9ee
   m_configObjects: {}
