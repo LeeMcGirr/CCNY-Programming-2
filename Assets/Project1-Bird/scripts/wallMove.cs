@@ -17,4 +17,12 @@ public class wallMove : MonoBehaviour
     {
         transform.Translate(1 * speed, 0, 0);        
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.tag == "enemy")
+        {
+            Destroy(this.gameObject);   
+        }
+    }
 }

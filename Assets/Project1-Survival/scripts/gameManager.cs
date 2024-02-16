@@ -6,13 +6,11 @@ using UnityEngine;
 public class gameManager : MonoBehaviour
 {
     [Header("Global vars")]
-    public bool isBird;
     public GameObject myPlayer;
     public float timer;
     public float timeLimit;
     public int score;
     playerController myController;
-    birdController myBird;
 
     [Header("NPC vars")]
     public GameObject collectible1;
@@ -23,6 +21,8 @@ public class gameManager : MonoBehaviour
 
     [Header("UI/UX Vars")]
     public TextMeshProUGUI TitleText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
 
     //to design a state machine, first we need to define a subclass of enum - GameState
     public enum GameState
@@ -37,8 +37,7 @@ public class gameManager : MonoBehaviour
     {
         myGameState = GameState.GAMESTART;
         myPlayer.SetActive(false);
-        if (isBird) { myBird = myPlayer.GetComponent<birdController>(); }
-        else { myController = myPlayer.GetComponent<playerController>(); }
+        myController = myPlayer.GetComponent<playerController>();
         
 
     }
@@ -46,12 +45,10 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isBird)
+
+        if (myController.myHealth < 0)
         {
-            if (myController.myHealth < 0)
-            {
-                EnterFinale();
-            }
+            EnterFinale();
         }
         //switch statements work kind of like a lightswitch with 2 or more positions
         switch (myGameState)
@@ -72,6 +69,16 @@ public class gameManager : MonoBehaviour
                 timer += Time.deltaTime;
                 spawnTimer += Time.deltaTime;
 
+                //you can put the prefix (int) on a float to typecast it into an integer
+                //you can also use the Mathf.Round() function for more specific rounding
+                int myScore = (int)myController.myHealth;
+                //you can convert a float or an int to a string by calling the .ToString() method
+                scoreText.text = myScore.ToString();
+
+                //use parenthesis to specify order of operations and you can combine the two into one line
+                timerText.text = ((int)timer).ToString();
+
+
                 //check against timeLimit, end the game if we're at time
                 if(timer > timeLimit)
                 {
@@ -89,7 +96,7 @@ public class gameManager : MonoBehaviour
                     spawnTimer = 0;
                     Debug.Log("spawnTimer: " + spawnTimer);
                     GameObject newObj = Instantiate(collectible1, targetPos, Quaternion.identity);
-                    if (!isBird) { newObj.GetComponent<enemyController>().myPlayer = myPlayer; }
+                    newObj.GetComponent<enemyController>().myPlayer = myPlayer;
                 }
                 #endregion
                 break;
@@ -122,7 +129,7 @@ public class gameManager : MonoBehaviour
         timer = 0f;
         spawnTimer = 0f;
         myGameState = GameState.PLAYING;
-        if (!isBird) { myController.myHealth = 1000; }
+        myController.myHealth = 1000;
         myPlayer.SetActive(true);
         TitleText.enabled = false;
     }
@@ -132,7 +139,11 @@ public class gameManager : MonoBehaviour
         myGameState = GameState.GAMEOVER;
         myPlayer.SetActive(false);
         TitleText.enabled = true;
-        TitleText.text = "GAME OVER. Press [SPACE] to restart";
+
+        //for longer lines you can break them up for easier readability - C# only cares about line endings (; or {})
+        TitleText.text = "Score: " + ((int)myController.myHealth).ToString() 
+            + " and lasted " + ((int)timer).ToString() 
+            + " seconds. <BR>GAME OVER. Press [SPACE] to restart";
 
     }
 }
