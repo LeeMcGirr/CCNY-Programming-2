@@ -9,6 +9,7 @@ public class playerController3D : MonoBehaviour
     public float lookSpeed = 100f;
     Rigidbody myRB;
     public Camera myCam;
+    public float camLock;
 
     Vector3 myLook;
 
@@ -17,13 +18,20 @@ public class playerController3D : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody>();
         myLook = myCam.transform.forward;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     // Update is called once per frame
     void Update()
     {
         Vector3 playerLook = myCam.transform.forward;
-        Debug.DrawRay(transform.position, playerLook, Color.white);
+
+        //camera forward direction
+        Debug.DrawRay(transform.position, playerLook*3f, Color.green);
+
         myLook += DeltaLook() * Time.deltaTime;
+
+        //clamp the magnitude to keep the player from looking fully upside down
+        myLook = Vector3.ClampMagnitude(myLook, camLock);
 
         transform.rotation = Quaternion.Euler(0f, myLook.x, 0f);
         myCam.transform.rotation = Quaternion.Euler(-myLook.y, myLook.x, 0f);
@@ -31,10 +39,15 @@ public class playerController3D : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 pMove = Dir();
+        Vector3 pMove = transform.TransformDirection(Dir());
         myRB.AddForce(pMove * speed * Time.fixedDeltaTime);
+
+        //player raw input - in magenta
         Debug.DrawRay(transform.position, pMove * 5f, Color.magenta);
-        Debug.DrawRay(transform.position, myRB.velocity.normalized*5f, Color.black);
+        Debug.DrawRay(transform.position, Vector3.up, Color.magenta);
+
+        //combined velocity of the rigidbody in black
+        Debug.DrawRay(transform.position + Vector3.up, myRB.velocity.normalized*5f, Color.black);
     }
 
     Vector3 Dir()
