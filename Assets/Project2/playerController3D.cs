@@ -14,6 +14,11 @@ public class playerController3D : MonoBehaviour
     public bool canJump;
     public bool jumped;
 
+    [Header("Kick Vars")]
+    public Transform myFoot;
+    public float kickForce = 50f;
+    public float upForce = 10f;
+    public float legLength = 5f;
 
     Rigidbody myRB;
     public Camera myCam;
@@ -21,14 +26,25 @@ public class playerController3D : MonoBehaviour
 
     Vector3 myLook;
 
+    void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Quaternion currentRot = transform.rotation;
+        myCam.transform.rotation = currentRot;
+        myLook = myCam.transform.forward;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
-        myLook = myCam.transform.forward;
-        Cursor.lockState = CursorLockMode.Locked;
         canJump = true;
         jumped = false;
+        //get the current mouse position
+        //zero out our rotations based off that value
+
     }
     // Update is called once per frame
     void Update()
@@ -119,13 +135,16 @@ public class playerController3D : MonoBehaviour
 
     void Kick()
     {
-        bool rayCast = Physics.Raycast(transform.position, Vector3.forward, 5f);
-        Debug.Log("raycast: " + rayCast);
-        Debug.DrawRay(transform.position, Vector3.forward * 5f, Color.blue);
+        RaycastHit hit;
+        bool rayCast = false; ;
+        //bool rayCast = Physics.Raycast(myFoot.position, myCam.transform.forward, out hit, 5f);
+        if (Physics.SphereCast(myFoot.position, 1f, myCam.transform.position, out hit, legLength)) { rayCast = true; }
+        Debug.DrawRay(myFoot.position, myCam.transform.forward * legLength, Color.blue);
+        Debug.Log("raycast: " + hit);
 
         if(rayCast)
         {
-             //code to kick the ball goes in here
+            hit.rigidbody.AddExplosionForce(kickForce,hit.point,legLength,upForce);
         }
     }
 
