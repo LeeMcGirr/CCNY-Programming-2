@@ -20,6 +20,7 @@ public class playerController3D : MonoBehaviour
     public float upForce = 10f;
     public float legLength = 5f;
 
+
     Rigidbody myRB;
     public Camera myCam;
     public float camLock; //maxlook up/down
@@ -30,9 +31,7 @@ public class playerController3D : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Quaternion currentRot = transform.rotation;
-        myCam.transform.rotation = currentRot;
-        myLook = myCam.transform.forward;
+        myLook = transform.localEulerAngles;
     }
 
 
