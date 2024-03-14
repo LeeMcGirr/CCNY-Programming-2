@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController3D : MonoBehaviour
@@ -26,12 +27,14 @@ public class playerController3D : MonoBehaviour
     public float camLock; //maxlook up/down
 
     Vector3 myLook;
+    Vector3 lookDiff;
+    float onStartTimer;
 
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        myLook = transform.localEulerAngles;
+        lookDiff = Vector3.zero;
     }
 
 
@@ -41,6 +44,8 @@ public class playerController3D : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         canJump = true;
         jumped = false;
+        myLook = transform.localEulerAngles;
+        onStartTimer = 0f;
         //get the current mouse position
         //zero out our rotations based off that value
 
@@ -48,16 +53,16 @@ public class playerController3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerLook = myCam.transform.forward;
-
+        onStartTimer += Time.fixedDeltaTime;
         //camera forward direction
-        Debug.DrawRay(transform.position, playerLook*3f, Color.green);
-
-        myLook += DeltaLook() * Time.deltaTime;
+        myLook += lookDiff;
+        Debug.DrawRay(transform.position, myCam.transform.forward * 3f, Color.green);
 
         //clamp the magnitude to keep the player from looking fully upside down
         myLook.y = Mathf.Clamp(myLook.y, -camLock, camLock);
 
+
+        Debug.Log("current myLook: " + myLook);
         transform.rotation = Quaternion.Euler(0f, myLook.x, 0f);
         myCam.transform.rotation = Quaternion.Euler(-myLook.y, myLook.x, 0f);
 
@@ -72,6 +77,8 @@ public class playerController3D : MonoBehaviour
         {
             Kick();
         }
+
+        lookDiff = DeltaLook() * Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -111,7 +118,7 @@ public class playerController3D : MonoBehaviour
 
     Vector3 DeltaLook()
     {
-        Vector3 dLook = Vector3.zero;
+        Vector3 dLook;
         float rotY = Input.GetAxisRaw("Mouse Y") * lookSpeed;
         float rotX = Input.GetAxisRaw("Mouse X") * lookSpeed;
         dLook = new Vector3(rotX, rotY, 0);
@@ -120,8 +127,12 @@ public class playerController3D : MonoBehaviour
         {
             //Debug.Log("delta look: " + dLook);
         }
-        
-        
+
+        if (onStartTimer < 1f)
+        {
+            dLook = Vector3.ClampMagnitude(dLook, onStartTimer*10f);
+        }
+
         return dLook;  
     }
 
