@@ -27,14 +27,13 @@ public class playerController3D : MonoBehaviour
     public float camLock; //maxlook up/down
 
     Vector3 myLook;
-    Vector3 lookDiff;
     float onStartTimer;
 
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        lookDiff = Vector3.zero;
+        myLook = transform.localEulerAngles;
     }
 
 
@@ -44,7 +43,6 @@ public class playerController3D : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         canJump = true;
         jumped = false;
-        myLook = transform.localEulerAngles;
         onStartTimer = 0f;
         //get the current mouse position
         //zero out our rotations based off that value
@@ -53,16 +51,15 @@ public class playerController3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        onStartTimer += Time.fixedDeltaTime;
+        onStartTimer += Time.deltaTime;
         //camera forward direction
-        myLook += lookDiff;
+        myLook += DeltaLook() * Time.deltaTime;
         Debug.DrawRay(transform.position, myCam.transform.forward * 3f, Color.green);
 
         //clamp the magnitude to keep the player from looking fully upside down
         myLook.y = Mathf.Clamp(myLook.y, -camLock, camLock);
 
-
-        Debug.Log("current myLook: " + myLook);
+        Debug.Log("myLook: " + myLook);
         transform.rotation = Quaternion.Euler(0f, myLook.x, 0f);
         myCam.transform.rotation = Quaternion.Euler(-myLook.y, myLook.x, 0f);
 
@@ -77,8 +74,6 @@ public class playerController3D : MonoBehaviour
         {
             Kick();
         }
-
-        lookDiff = DeltaLook() * Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -128,9 +123,9 @@ public class playerController3D : MonoBehaviour
             //Debug.Log("delta look: " + dLook);
         }
 
-        if (onStartTimer < 1f)
+        if(onStartTimer < 1f)
         {
-            dLook = Vector3.ClampMagnitude(dLook, onStartTimer*10f);
+            dLook = Vector3.ClampMagnitude(dLook, onStartTimer * 10f);
         }
 
         return dLook;  
