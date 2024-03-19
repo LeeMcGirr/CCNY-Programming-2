@@ -156,11 +156,22 @@ public class playerController3D : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Terrain") { canJump = true; }
+
+        //if we jump on floating platforms, turn their rigidbodies on after 1 second
+        //so they fall out from under the player
+        if (collision.gameObject.tag == "Platforms")
+        { StartCoroutine(killPlaform(1f, collision)); }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Terrain") { canJump = false; }
+    }
+
+    IEnumerator killPlaform(float time, Collision collision)
+    {
+        yield return new WaitForSeconds(time);
+        collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 
 }
